@@ -1,0 +1,17 @@
+mysql:
+  image: "registry.cn-hangzhou.aliyuncs.com/marmot/mysql-5.7"
+  volumes:
+  - ./mysql:/var/lib/mysql
+  environment:
+   - MYSQL_ROOT_PASSWORD=123456
+  container_name: yichang-mysql
+
+phpmyadmin:
+  image: "registry.cn-hangzhou.aliyuncs.com/marmot/phpmyadmin"
+  links:
+    - "mysql:mysql"
+  ports:
+   - "10081:80"
+  environment:
+   - UPLOAD_SIZE=1G
+  container_name: yichang-phpmyadmin

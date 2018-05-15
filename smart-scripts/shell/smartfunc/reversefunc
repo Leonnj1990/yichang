@@ -1,0 +1,25 @@
+#!/bin/bash
+
+function installReverse {
+  if [ ! -d "./reverse" ]; then
+    cd $smartPath && cp -r ./smart-scripts/reverse ./
+  fi
+  cd reverse && docker-compose up -d && cd $smartPath
+}
+
+function startReverse {
+  cd reverse && docker-compose up -d
+  if [ $? -ne 0 ]
+  then
+    echo 'recreate revers'
+    docker-compose rm -f && docker-compose up -d
+  fi
+}
+
+function stopReverse {
+  cd reverse && docker-compose stop && cd $smartPath
+}
+
+function clearReverse {
+  cd reverse && docker-compose rm -f && docker-compose pull && cd $smartPath
+}

@@ -1,0 +1,24 @@
+#!/bin/bash
+
+function installOa {
+  if [ ! -d "./yichang-frontend-oa" ]; then
+    cd $smartPath && git clone https://code.aliyun.com/yichang/yichang-frontend-oa.git
+  fi
+  cd yichang-frontend-oa && git checkout dev && docker-compose up -d && cp pre-commit .git/hooks && ./smart composer && chmod +x vendor/bin/* && cd $smartPath
+}
+
+function startOa {
+  cd yichang-frontend-oa && git checkout dev && docker-compose up -d && cd $smartPath
+}
+
+function stopOa {
+  cd yichang-frontend-oa && git checkout dev && docker-compose stop && cd $smartPath
+}
+
+function clearOa {
+  cd yichang-frontend-oa && git checkout dev && docker-compose stop && docker-compose rm -f && docker-compose pull && cd $smartPath
+}
+
+function updateOa {
+  cd yichang-frontend-oa && git checkout dev && git pull origin dev && cd $smartPath
+}

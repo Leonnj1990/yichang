@@ -1,0 +1,12 @@
+fluentd:
+  image: "registry.cn-hangzhou.aliyuncs.com/marmot/fluentd"
+  volumes:
+    - ./:/fluentd/etc
+  external_links:
+    - "yichang-mongo:mongo"
+  ports:
+    - "24224:24224"
+    - "24224:24224/udp"
+  environment:
+    - FLUENTD_CONF=fluentd.conf
+  container_name: yichang-fluentd

@@ -1,0 +1,7 @@
+rabbitmq:
+  image: registry.cn-hangzhou.aliyuncs.com/marmot/rabbitmq3
+  environment:
+    RABBITMQ_DEFAULT_USER: root
+    RABBITMQ_DEFAULT_PASS: test
+  stdin_open: true
+  container_name: yichang-rabbitmq

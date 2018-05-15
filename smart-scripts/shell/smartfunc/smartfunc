@@ -1,0 +1,31 @@
+#!/bin/bash
+
+function menu {
+	echo 
+	echo -e "\t\t\t宜昌人行项目控制脚本\n"
+	echo -e "\t\t使用方法: smart command. 如: ./smart start 启动服务\n"
+	echo -e "\t\t\tREAD \t\t\tME\n"
+	echo -e "\t\t绑定hosts文件 portal.yichang.com 127.0.0.1 门户网\n"
+	echo -e "\t\t绑定hosts文件 oa.yichang.com 127.0.0.1 后台\n"
+	echo -e "\t1. install: 安装服务\n"
+	echo -e "\t2. start: 启动服务\n"
+	echo -e "\t3. stop: 关闭服务\n"
+  echo -e "\t4. clear 清除环境,可以清除容器后重新启动\n"
+  echo -e "\t5. upgrade 更新环境\n"
+}
+
+function addHosts {
+  declare -A hosts
+  hosts=( ['portal.yichang.com']='127.0.0.1' ['oa.yichang.com']='127.0.0.1' )
+  for host in "${!hosts[@]}";
+  do
+    if [ `isHostExist $host` -ne 0 ]; then
+      echo "${hosts[$host]}    $host" | sudo tee -a /etc/hosts > /dev/null
+    fi
+  done
+}
+
+function isHostExist {
+  cat /etc/hosts | grep $1 > /dev/null 
+  echo $?
+}

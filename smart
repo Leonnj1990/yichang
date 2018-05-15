@@ -1,0 +1,59 @@
+#!/bin/bash
+
+smartPath=`pwd`
+#加载公共smart函数库
+. ./smart-scripts/shell/smartfunc/smartfunc
+
+#加载base函数库
+. ./smart-scripts/shell/smartfunc/basefunc
+
+#加载项目函数库
+. ./smart-scripts/shell/smartfunc/oafunc
+. ./smart-scripts/shell/smartfunc/protalfunc
+. ./smart-scripts/shell/smartfunc/apifunc
+. ./smart-scripts/shell/smartfunc/reversefunc
+
+case $1 in
+'install')
+  installBasement
+  installApi
+  installOa
+  installPortal
+  installReverse
+  addHosts
+  ;;
+'start')
+  startBasement
+  startApi
+  startOa
+  startPortal
+  startReverse
+  ;;
+'stop')
+  stopBasement
+  stopApi
+  stopOa
+  stopPortal
+  stopReverse
+  ;;
+'clear')
+  clearBasement
+  clearPortal
+  clearApi
+  clearOa
+  ;;
+'upgrade')
+  clearApi
+  clearOa
+  clearPortal
+  clearReverse
+  startApi
+  startOa
+  startPortal
+  startReverse
+  ;;
+'test')
+  ;;
+*)
+  menu
+esac

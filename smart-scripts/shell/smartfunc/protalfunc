@@ -1,0 +1,24 @@
+#!/bin/bash
+
+function installPortal {
+  if [ ! -d "./yichang-frontend-portal" ]; then
+    cd $smartPath && git clone https://code.aliyun.com/yichang/yichang-frontend-portal.git
+  fi
+  cd yichang-frontend-portal && git checkout dev && docker-compose up -d && cp pre-commit .git/hooks && ./smart composer && chmod +x vendor/bin/* && cd $smartPath
+}
+
+function startPortal {
+  cd yichang-frontend-portal && git checkout dev && docker-compose up -d && cd $smartPath
+}
+
+function stopPortal {
+  cd yichang-frontend-portal && git checkout dev && docker-compose stop && cd $smartPath
+}
+
+function clearPortal {
+  cd yichang-frontend-portal && git checkout dev && docker-compose stop && docker-compose rm -f && docker-compose pull && cd $smartPath
+}
+
+function updatePortal {
+  cd yichang-frontend-portal && git checkout dev && git pull origin dev && cd $smartPath
+}
